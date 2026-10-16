@@ -64,12 +64,13 @@ jobs:
         echo "CONFIG_KPM=y" >> android-kernel/arch/arm64/configs/${{ env.KERNEL_CONFIG }}
         echo "CONFIG_KALLSYMS=y" >> android-kernel/arch/arm64/configs/${{ env.KERNEL_CONFIG }}
         echo "CONFIG_KALLSYMS_ALL=y" >> android-kernel/arch/arm64/configs/${{ env.KERNEL_CONFIG }}
+        echo "CONFIG_KSU_MANUAL_HOOK=y" >> android-kernel/arch/arm64/configs/${{ env.KERNEL_CONFIG }}
 
     - name: 配置 SukiSU-Ultra (with SUSFS)
       if: env.ENABLE_KERNELSU == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-dev
+        curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-main
 
     - name: 开启kvm
       if: env.ENABLE_KVM == 'true'
